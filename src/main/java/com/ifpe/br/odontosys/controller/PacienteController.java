@@ -1,6 +1,6 @@
 package com.ifpe.br.odontosys.controller;
 
-import com.ifpe.br.odontosys.DTO.request.CreatePacienteRequest;
+import com.ifpe.br.odontosys.DTO.request.CreatePacienteRequestDTO;
 import com.ifpe.br.odontosys.model.PacienteModel;
 import com.ifpe.br.odontosys.service.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class PacienteController {
     private PacienteService pacienteService;
 
     @PostMapping
-    public ResponseEntity<PacienteModel> createPaciente(@RequestBody CreatePacienteRequest pacienteRequest){
+    public ResponseEntity<PacienteModel> createPaciente(@RequestBody CreatePacienteRequestDTO pacienteRequest){
         PacienteModel paciente = pacienteRequest.toEntity();
         paciente.getUsuario().setSenha(
                 encoder.encode(paciente.getUsuario().getPassword())
