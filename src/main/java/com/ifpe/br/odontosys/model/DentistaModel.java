@@ -1,9 +1,6 @@
 package com.ifpe.br.odontosys.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,6 +18,10 @@ import java.util.List;
 @AllArgsConstructor
 public class DentistaModel extends BusinessModel{
 
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(nullable = false)
+    private UsuarioModel usuario;
+
     @Column(nullable = false)
     private String nome;
 
@@ -30,7 +31,7 @@ public class DentistaModel extends BusinessModel{
     @Column(nullable = false)
     private String telefone;
 
-    @OneToOne(targetEntity = EnderecoModel.class)
+    @OneToOne(targetEntity = EnderecoModel.class, cascade = CascadeType.PERSIST)
     private EnderecoModel endereco;
 
     @OneToMany(mappedBy = "dentista")
