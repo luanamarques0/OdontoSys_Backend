@@ -1,13 +1,8 @@
 package com.ifpe.br.odontosys.DTO.request;
 
-import com.ifpe.br.odontosys.model.DentistaModel;
-import com.ifpe.br.odontosys.model.EnderecoModel;
+import com.ifpe.br.odontosys.model.PacienteModel;
 import com.ifpe.br.odontosys.model.UsuarioModel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
+import lombok.*;
 import java.time.LocalDate;
 
 
@@ -15,30 +10,27 @@ import java.time.LocalDate;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateDentistaRequestDTO {
+public class PacienteRequestDTO {
 
     private String nome;
     private String email;
     private String senha;
-    private String cro;
-    private EnderecoModel endereco;
     private LocalDate dataNascimento;
     private String telefone;
 
     private UsuarioModel buildUsuario(){
         return new UsuarioModel(
-                "ROLE_DENTISTA",
+                "ROLE_PACIENTE",
                 email,
                 senha);
     }
 
-    public DentistaModel toEntity(){
-        return DentistaModel.builder()
+    public PacienteModel toEntity(){
+        return PacienteModel.builder()
                 .usuario(this.buildUsuario())
                 .nome(nome)
-                .cro(cro)
+                .dataNascimento(dataNascimento)
                 .telefone(telefone)
-                .endereco(endereco)
                 .build();
     }
 }
