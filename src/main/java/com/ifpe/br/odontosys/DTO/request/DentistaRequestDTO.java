@@ -8,8 +8,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
 
 @Builder
 @Getter
@@ -22,7 +20,6 @@ public class DentistaRequestDTO {
     private String senha;
     private String cro;
     private EnderecoModel endereco;
-    private LocalDate dataNascimento;
     private String telefone;
 
     private UsuarioModel buildUsuario(){
