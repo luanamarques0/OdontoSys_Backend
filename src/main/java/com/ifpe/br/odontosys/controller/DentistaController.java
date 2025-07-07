@@ -30,6 +30,7 @@ public class DentistaController {
     @Autowired
     private DentistaService dentistaService;
 
+
     @PostMapping
     public ResponseEntity<DentistaModel> createDentista(@RequestBody DentistaRequestDTO dentistaRequest) {
         DentistaModel dentista = dentistaRequest.toEntity();
@@ -40,10 +41,12 @@ public class DentistaController {
         return new ResponseEntity<DentistaModel>(dentistaResponse, HttpStatus.CREATED);
     }
 
+
     @GetMapping
     public List<DentistaModel> listarTodos() {
         return dentistaService.listarTodos();
     }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody @Valid DentistaRequestDTO dentistaRequest){

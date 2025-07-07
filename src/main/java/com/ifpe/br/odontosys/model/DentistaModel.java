@@ -22,6 +22,12 @@ public class DentistaModel extends BusinessModel{
     @JoinColumn(nullable = false)
     private UsuarioModel usuario;
 
+    @OneToMany(mappedBy = "dentista")
+    private List<ConsultaModel> consultas;
+
+    @OneToMany(mappedBy = "dentista")
+    private List<DiasAtendimentoModel> diasAtendimento;
+
     @Column(nullable = false)
     private String nome;
 
@@ -33,8 +39,5 @@ public class DentistaModel extends BusinessModel{
 
     @OneToOne(targetEntity = EnderecoModel.class, cascade = CascadeType.PERSIST)
     private EnderecoModel endereco;
-
-    @OneToMany(mappedBy = "dentista")
-    private List<ConsultaModel> consultas;
 
 }
