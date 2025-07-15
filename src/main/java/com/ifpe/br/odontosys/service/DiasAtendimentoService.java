@@ -20,9 +20,8 @@ public class DiasAtendimentoService {
     @Autowired
     private DentistaRepository dentistaRepository;
 
-
     @Transactional
-    public void createDiasAtendimento(Long dentistaId, List<DiasAtendimentoModel> diasAtendimento){
+    public void createDiasAtendimento(Long dentistaId, List<DiasAtendimentoModel> diasAtendimento) {
         DentistaModel dentista = dentistaRepository.findById(dentistaId)
                 .orElseThrow(() -> new NoSuchElementException("Dentista não encontrado"));
 
@@ -31,5 +30,21 @@ public class DiasAtendimentoService {
         diasAtendimentoRepository.saveAll(diasAtendimento);
     }
 
+    public List<DiasAtendimentoModel> getDiasAtendimentoByDentistaId(Long dentistaId) {
+        return diasAtendimentoRepository.findByDentistaId(dentistaId);
+    }
+
+    public DiasAtendimentoModel updateDiaAtendimento(Long dentistaId, Long id,DiasAtendimentoModel diasAtendimentoModel) {
+        DentistaModel dentista = dentistaRepository.findById(dentistaId)
+                .orElseThrow(() -> new NoSuchElementException("Dentista não encontrado"));
+        DiasAtendimentoModel existingDia = diasAtendimentoRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Dia de atendimento não encontrado"));
+        
+        existingDia.setDentista(dentista);
+        existingDia.setDataAtendimento(diasAtendimentoModel.getDataAtendimento());
+        existingDia.setDisponivel(diasAtendimentoModel.getDisponivel());
+
+        return diasAtendimentoRepository.save(existingDia);
+    }
 
 }

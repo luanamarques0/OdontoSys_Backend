@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 public class DiasAtendimentoRequestDTO {
 
-    private List<HorarioRequestDTO> horarios;
+    private List<HorarioCadastroRequestDTO> horarios;
 
     public List<DiasAtendimentoModel> toListEntity(){
         return horarios.stream()

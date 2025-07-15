@@ -1,6 +1,8 @@
 package com.ifpe.br.odontosys.controller;
 
 import com.ifpe.br.odontosys.DTO.request.DiasAtendimentoRequestDTO;
+import com.ifpe.br.odontosys.DTO.request.DiaAtualizarRequestDTO;
+import com.ifpe.br.odontosys.model.DiasAtendimentoModel;
 import com.ifpe.br.odontosys.service.DiasAtendimentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,4 +20,15 @@ public class DiasAtendimentoController {
         diasAtendimentoService.createDiasAtendimento(id, request.toListEntity());
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("{id}")
+    public ResponseEntity<?> getDiasAtendimentoByDentistaId(@PathVariable Long id) {
+        return ResponseEntity.ok(diasAtendimentoService.getDiasAtendimentoByDentistaId(id));
+    }
+
+    @PutMapping("{dentistaId}/{id}")
+    public ResponseEntity<?> updateDiaAtendimento(@PathVariable Long dentistaId, @PathVariable Long id, @RequestBody DiaAtualizarRequestDTO request) {
+        return ResponseEntity.ok(diasAtendimentoService.updateDiaAtendimento(dentistaId, id, request.toEntity()));
+    }
+
 }
