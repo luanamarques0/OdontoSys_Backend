@@ -3,15 +3,13 @@ package com.ifpe.br.odontosys.controller;
 import com.ifpe.br.odontosys.DTO.request.DentistaRequestDTO;
 import com.ifpe.br.odontosys.model.DentistaModel;
 import com.ifpe.br.odontosys.service.DentistaService;
-
 import jakarta.validation.Valid;
-
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/dentista")
+@CrossOrigin
 public class DentistaController {
 
     @Autowired

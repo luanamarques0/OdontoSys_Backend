@@ -11,12 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("esqueci-senha")
+@CrossOrigin
 public class ResetPasswordController {
 
     @Autowired

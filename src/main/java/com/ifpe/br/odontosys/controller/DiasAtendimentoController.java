@@ -2,7 +2,6 @@ package com.ifpe.br.odontosys.controller;
 
 import com.ifpe.br.odontosys.DTO.request.DiasAtendimentoRequestDTO;
 import com.ifpe.br.odontosys.DTO.request.DiaAtualizarRequestDTO;
-import com.ifpe.br.odontosys.model.DiasAtendimentoModel;
 import com.ifpe.br.odontosys.service.DiasAtendimentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/diasAtendimento")
+@CrossOrigin
 public class DiasAtendimentoController {
 
     @Autowired
