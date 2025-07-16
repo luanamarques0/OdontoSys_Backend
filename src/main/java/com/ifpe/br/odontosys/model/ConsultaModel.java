@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity(name = "tb_consulta")
-
 @Builder
 @Getter
 @Setter

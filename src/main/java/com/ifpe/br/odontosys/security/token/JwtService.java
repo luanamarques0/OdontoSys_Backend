@@ -3,7 +3,6 @@ package com.ifpe.br.odontosys.security.token;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-
 import com.ifpe.br.odontosys.model.UsuarioModel;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -28,7 +27,7 @@ public class JwtService {
 
             String token = JWT.create()
                     .withIssuer("odontosys-api") // Define o emissor do token (quem gerou)
-                    .withSubject(usuario.getEmail()) // Define o assunto do token (geralmente o identificador do usuário)
+                    .withSubject(usuario.getId().toString()) // Define o assunto do token (geralmente o identificador do usuário)
                     .withExpiresAt(generateExpirationDate()) // Define a data de expiração do token
                     .sign(algorithm); // Assina o token com o algoritmo definido
 

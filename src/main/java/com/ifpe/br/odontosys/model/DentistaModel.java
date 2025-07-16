@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.util.List;
 
 @Entity(name = "tb_dentista")
@@ -25,13 +24,13 @@ public class DentistaModel extends BusinessModel{
     @OneToMany(mappedBy = "dentista")
     private List<ConsultaModel> consultas;
 
-    @OneToMany(mappedBy = "dentista")
+    @OneToMany(mappedBy = "dentista", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<DiasAtendimentoModel> diasAtendimento;
 
     @Column(nullable = false)
     private String nome;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String cro;
 
     @Column(nullable = false)
