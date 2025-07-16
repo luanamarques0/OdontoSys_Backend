@@ -3,16 +3,14 @@ package com.ifpe.br.odontosys.service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.ifpe.br.odontosys.DTO.request.ConsultaCadastroRequestDTO;
-import com.ifpe.br.odontosys.DTO.response.ConsultasDentistaResponseDTO;
 import com.ifpe.br.odontosys.model.ConsultaModel;
 import com.ifpe.br.odontosys.model.DentistaModel;
 import com.ifpe.br.odontosys.model.DiasAtendimentoModel;
 import com.ifpe.br.odontosys.model.PacienteModel;
+import com.ifpe.br.odontosys.model.enums.StatusConsulta;
 import com.ifpe.br.odontosys.repository.ConsultaRepository;
 import com.ifpe.br.odontosys.repository.DentistaRepository;
 import com.ifpe.br.odontosys.repository.PacienteRepository;
@@ -60,6 +58,7 @@ public class ConsultaService {
                 .endereco(dentista.getEndereco())
                 .paciente(paciente)
                 .dentista(dentista)
+                .statusConsulta(StatusConsulta.AGENDADA)
                 .build();
 
         var consultaSalva = consultaRepository.save(consultaModel);
@@ -74,5 +73,10 @@ public class ConsultaService {
         LocalDateTime fimDoDia = dataConsulta.atTime(23, 59, 59);
 
         return consultaRepository.findByDentistaIdAndDataConsultaBetween(dentistaId, inicioDoDia, fimDoDia);
+    }
+
+    public List<ConsultaModel> findConsultasDoUsuario(Long usuarioId) {
+        List<ConsultaModel> consultas = consultaRepository.findByPacienteId(usuarioId);
+        return consultas;
     }
 }

@@ -28,6 +28,7 @@ public class PacienteModel extends BusinessModel {
     private String telefone;
 
     @OneToMany(mappedBy = "paciente")
+    @Builder.Default
     private List<ConsultaModel> consultas = new ArrayList<>();
 
 }

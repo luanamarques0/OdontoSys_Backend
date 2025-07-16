@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.ifpe.br.odontosys.DTO.request.ConsultaCadastroRequestDTO;
-import com.ifpe.br.odontosys.DTO.response.ConsultasDentistaResponseDTO;
+import com.ifpe.br.odontosys.DTO.response.ConsultasPacienteResponseDTO;
 import com.ifpe.br.odontosys.model.ConsultaModel;
 import com.ifpe.br.odontosys.service.ConsultaService;
 
@@ -34,7 +34,7 @@ public class ConsultaController {
     }
 
     @GetMapping("/agenda/{dentistaId}")
-    public ResponseEntity<List<ConsultasDentistaResponseDTO>> findConsultaByDentistaAndData( 
+    public ResponseEntity<List<ConsultasPacienteResponseDTO>> findConsultaByDentistaAndData( 
         @PathVariable Long dentistaId,
         @RequestParam("data") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data
         ) {
@@ -42,9 +42,21 @@ public class ConsultaController {
         List<ConsultaModel> consultas = consultaService.findConsultaByDentistaAndData(dentistaId, data);
         
         var response = consultas.stream()
-                .map(ConsultasDentistaResponseDTO::new)
+                .map(ConsultasPacienteResponseDTO::new)
                 .toList();
 
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/usuario/{usuarioId}")
+    public ResponseEntity<List<ConsultasPacienteResponseDTO>> findConsultasDoUsuario(@PathVariable Long usuarioId) {
+        List<ConsultaModel> consultas = consultaService.findConsultasDoUsuario(usuarioId);
+
+        var response = consultas.stream()
+                .map(ConsultasPacienteResponseDTO::new)
+                .toList();
+        
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

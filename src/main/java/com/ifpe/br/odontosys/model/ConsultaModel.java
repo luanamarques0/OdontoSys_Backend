@@ -1,8 +1,12 @@
 package com.ifpe.br.odontosys.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ifpe.br.odontosys.model.enums.StatusConsulta;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToOne;
 import lombok.*;
@@ -48,5 +52,9 @@ public class ConsultaModel extends BusinessModel{
 
     @Column
     private LocalDate voltaEsperada;
+
+    @Column
+    @Enumerated(EnumType.ORDINAL)
+    private StatusConsulta statusConsulta;
 
 }
