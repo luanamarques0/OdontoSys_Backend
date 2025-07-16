@@ -30,8 +30,8 @@ public class DiasAtendimentoService {
         diasAtendimentoRepository.saveAll(diasAtendimento);
     }
 
-    public List<DiasAtendimentoModel> getDiasAtendimentoByDentistaId(Long dentistaId) {
-        return diasAtendimentoRepository.findByDentistaId(dentistaId);
+    public List<DiasAtendimentoModel> getDiasAtendimentoByDentistaCro(String dentistaCro) {
+        return diasAtendimentoRepository.findByDentistaCroAndDisponivelTrue(dentistaCro);
     }
 
     public DiasAtendimentoModel updateDiaAtendimento(Long dentistaId, Long id,DiasAtendimentoModel diasAtendimentoModel) {

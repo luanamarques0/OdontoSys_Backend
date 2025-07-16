@@ -3,6 +3,7 @@ package com.ifpe.br.odontosys.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToOne;
 import lombok.*;
 import java.time.LocalDate;
@@ -17,14 +18,14 @@ import java.time.LocalDateTime;
 public class ConsultaModel extends BusinessModel{
 
     @JsonIgnore
-    @ManyToOne(targetEntity = PacienteModel.class)
+    @ManyToOne(targetEntity = PacienteModel.class, fetch = FetchType.EAGER)
     private PacienteModel paciente;
 
     @JsonIgnore
-    @ManyToOne(targetEntity = DentistaModel.class)
+    @ManyToOne(targetEntity = DentistaModel.class, fetch = FetchType.EAGER)
     private DentistaModel dentista;
 
-    @ManyToOne(targetEntity = EnderecoModel.class)
+    @ManyToOne(targetEntity = EnderecoModel.class, fetch = FetchType.EAGER)
     private EnderecoModel endereco;
 
     @Column(nullable = false)

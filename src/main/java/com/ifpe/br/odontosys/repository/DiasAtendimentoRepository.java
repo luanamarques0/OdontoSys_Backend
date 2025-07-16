@@ -5,5 +5,5 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface DiasAtendimentoRepository extends JpaRepository<DiasAtendimentoModel, Long> {
-    List<DiasAtendimentoModel> findByDentistaId(Long dentistaId);
+    List<DiasAtendimentoModel> findByDentistaCroAndDisponivelTrue(String dentistaCro);
 }

@@ -1,11 +1,14 @@
 package com.ifpe.br.odontosys.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ifpe.br.odontosys.DTO.request.ConsultaCadastroRequestDTO;
+import com.ifpe.br.odontosys.DTO.response.ConsultasDentistaResponseDTO;
 import com.ifpe.br.odontosys.model.ConsultaModel;
 import com.ifpe.br.odontosys.model.DentistaModel;
 import com.ifpe.br.odontosys.model.DiasAtendimentoModel;
@@ -31,6 +34,7 @@ public class ConsultaService {
 
     @Transactional
     public ConsultaModel saveConsulta(ConsultaCadastroRequestDTO consulta) {
+
         if(consulta.getDataHora().isBefore(LocalDateTime.now())) {
             throw new RuntimeException("Data da consulta não pode ser no passado");
         }
@@ -63,5 +67,12 @@ public class ConsultaService {
         data.setDisponivel(false);
 
         return consultaSalva;
+    }
+
+    public List<ConsultaModel> findConsultaByDentistaAndData(Long dentistaId, LocalDate dataConsulta) {
+        LocalDateTime inicioDoDia = dataConsulta.atStartOfDay();
+        LocalDateTime fimDoDia = dataConsulta.atTime(23, 59, 59);
+
+        return consultaRepository.findByDentistaIdAndDataConsultaBetween(dentistaId, inicioDoDia, fimDoDia);
     }
 }

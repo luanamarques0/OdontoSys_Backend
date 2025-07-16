@@ -21,9 +21,9 @@ public class DiasAtendimentoController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("{id}")
-    public ResponseEntity<?> getDiasAtendimentoByDentistaId(@PathVariable Long id) {
-        return ResponseEntity.ok(diasAtendimentoService.getDiasAtendimentoByDentistaId(id));
+    @GetMapping("{cro}")
+    public ResponseEntity<?> getDiasAtendimentoByDentistaId(@PathVariable String cro) {
+        return ResponseEntity.ok(diasAtendimentoService.getDiasAtendimentoByDentistaCro(cro));
     }
 
     @PutMapping("{dentistaId}/{id}")
