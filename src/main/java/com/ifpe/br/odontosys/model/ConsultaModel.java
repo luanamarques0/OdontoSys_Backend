@@ -2,7 +2,6 @@ package com.ifpe.br.odontosys.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ifpe.br.odontosys.model.enums.StatusConsulta;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -10,7 +9,6 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToOne;
 import lombok.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity(name = "tb_consulta")
@@ -51,7 +49,7 @@ public class ConsultaModel extends BusinessModel{
     private String recomendacoes;
 
     @Column
-    private LocalDate voltaEsperada;
+    private String voltaEsperada;
 
     @Column
     @Enumerated(EnumType.ORDINAL)

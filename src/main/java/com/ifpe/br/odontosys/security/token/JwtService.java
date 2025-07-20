@@ -27,8 +27,9 @@ public class JwtService {
 
             String token = JWT.create()
                     .withIssuer("odontosys-api") // Define o emissor do token (quem gerou)
-                    .withSubject(usuario.getId().toString()) // Define o assunto do token (geralmente o identificador do usuário)
+                    .withSubject(usuario.getEmail()) // Define o assunto do token (geralmente o identificador do usuário)
                     .withExpiresAt(generateExpirationDate()) // Define a data de expiração do token
+                    .withClaim("id",usuario.getId())
                     .sign(algorithm); // Assina o token com o algoritmo definido
 
             return token;

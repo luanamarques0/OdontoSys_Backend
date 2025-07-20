@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ifpe.br.odontosys.DTO.request.ConsultaCadastroRequestDTO;
+import com.ifpe.br.odontosys.DTO.request.ConsultaEdicaoRequestDTO;
 import com.ifpe.br.odontosys.model.ConsultaModel;
 import com.ifpe.br.odontosys.model.DentistaModel;
 import com.ifpe.br.odontosys.model.DiasAtendimentoModel;
@@ -78,5 +79,39 @@ public class ConsultaService {
     public List<ConsultaModel> findConsultasDoUsuario(Long usuarioId) {
         List<ConsultaModel> consultas = consultaRepository.findByPacienteId(usuarioId);
         return consultas;
+    }
+
+    @Transactional
+    public ConsultaModel updateConsulta(Long consultaId, ConsultaEdicaoRequestDTO consultaEdicao) {
+        ConsultaModel consulta = consultaRepository.findById(consultaId)
+                .orElseThrow(() -> new RuntimeException("Consulta não encontrada com ID: " + consultaId));
+
+        // Atualizar apenas os campos permitidos
+        if (consultaEdicao.getAvaliacao() != null) {
+            consulta.setAvaliacao(consultaEdicao.getAvaliacao());
+        }
+        
+        if (consultaEdicao.getProcedimentosRealizados() != null) {
+            consulta.setProcedimentosRealizados(consultaEdicao.getProcedimentosRealizados());
+        }
+        
+        if (consultaEdicao.getRecomendacoes() != null) {
+            consulta.setRecomendacoes(consultaEdicao.getRecomendacoes());
+        }
+        
+        if (consultaEdicao.getVoltaEsperada() != null) {
+            consulta.setVoltaEsperada(consultaEdicao.getVoltaEsperada());
+        }
+
+        consulta.setStatusConsulta(StatusConsulta.REALIZADA);
+        return consultaRepository.save(consulta);
+    }
+
+    @Transactional
+    public void cancelarConsulta(Long consultaId) {
+        ConsultaModel consulta = consultaRepository.findById(consultaId)
+                .orElseThrow(() -> new RuntimeException("Consulta não encontrada com ID: " + consultaId));
+        consulta.setStatusConsulta(StatusConsulta.CANCELADA);
+        consultaRepository.save(consulta);
     }
 }

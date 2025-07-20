@@ -20,6 +20,7 @@ public class ConsultasDentistaResponseDTO {
     private String procedimentosRealizados;
     private String recomendacoes;
     private int statusConsulta;
+    private String voltaEsperada;
 
     public ConsultasDentistaResponseDTO(ConsultaModel consulta) {
         this.setId(consulta.getId());
@@ -30,6 +31,7 @@ public class ConsultasDentistaResponseDTO {
         this.setProcedimentosRealizados(consulta.getProcedimentosRealizados());
         this.setRecomendacoes(consulta.getRecomendacoes());
         this.setStatusConsulta(consulta.getStatusConsulta().getCodigo());
+        this.setVoltaEsperada(consulta.getVoltaEsperada());
     }
 
 }

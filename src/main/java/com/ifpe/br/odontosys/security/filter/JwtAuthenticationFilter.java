@@ -1,7 +1,6 @@
 package com.ifpe.br.odontosys.security.filter;
 
 import java.io.IOException;
-
 import com.ifpe.br.odontosys.repository.UsuarioRepository;
 import com.ifpe.br.odontosys.security.token.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
