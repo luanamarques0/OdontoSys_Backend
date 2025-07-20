@@ -52,4 +52,10 @@ public class PacienteController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<PacienteModel> findByUsuarioId(@PathVariable Long id) {
+        PacienteModel paciente = pacienteService.findByUsuarioId(id);
+        return ResponseEntity.ok(paciente);
+    }
+
 }

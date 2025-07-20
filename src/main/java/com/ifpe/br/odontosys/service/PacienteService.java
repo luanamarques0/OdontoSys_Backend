@@ -2,12 +2,10 @@ package com.ifpe.br.odontosys.service;
 
 import com.ifpe.br.odontosys.model.PacienteModel;
 import com.ifpe.br.odontosys.model.UsuarioModel;
+import com.ifpe.br.odontosys.repository.DentistaRepository;
 import com.ifpe.br.odontosys.repository.PacienteRepository;
-
 import jakarta.transaction.Transactional;
-
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,11 +13,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class PacienteService {
 
+
     @Autowired
     private PacienteRepository pacienteRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
 
     public PacienteModel save(PacienteModel paciente) {
         return pacienteRepository.save(paciente);
@@ -29,9 +29,14 @@ public class PacienteService {
         return pacienteRepository.findAll();
     }
 
+    public PacienteModel findByUsuarioId(Long id) {
+        return pacienteRepository.findByUsuarioId(id)
+                .orElseThrow(() -> new RuntimeException("Paciente não encontrado"));
+    }
+
     @Transactional
     public void update(Long id, PacienteModel pacienteAlterado) {
-        PacienteModel pacienteExistente = pacienteRepository.findById(id)
+        PacienteModel pacienteExistente = pacienteRepository.findByUsuarioId(id)
                 .orElseThrow(() -> new RuntimeException("Paciente não encontrado"));
 
         if (pacienteAlterado.getNome() != null && !pacienteAlterado.getNome().isBlank())

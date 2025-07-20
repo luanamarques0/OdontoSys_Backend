@@ -55,4 +55,10 @@ public class DentistaController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<DentistaModel> findByUsuarioId(@PathVariable Long id) {
+        DentistaModel dentista = dentistaService.findByUsuarioId(id);
+        return ResponseEntity.ok(dentista);
+    }
+
 }

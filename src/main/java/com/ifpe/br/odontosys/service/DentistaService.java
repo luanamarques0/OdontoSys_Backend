@@ -4,11 +4,8 @@ import com.ifpe.br.odontosys.model.DentistaModel;
 import com.ifpe.br.odontosys.model.EnderecoModel;
 import com.ifpe.br.odontosys.model.UsuarioModel;
 import com.ifpe.br.odontosys.repository.DentistaRepository;
-
 import jakarta.transaction.Transactional;
-
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -30,9 +27,14 @@ public class DentistaService {
         return dentistaRepository.findAll();
     }
 
+    public DentistaModel findByUsuarioId(Long id) {
+        return dentistaRepository.findByUsuarioId(id)
+                .orElseThrow(() -> new RuntimeException("Dentista não encontrado"));
+    }
+
     @Transactional
     public void update(Long id, DentistaModel dentistaAlterado) {
-        DentistaModel dentistaExistente = dentistaRepository.findById(id)
+        DentistaModel dentistaExistente = dentistaRepository.findByUsuarioId(id)
                 .orElseThrow(() -> new RuntimeException("Dentista não encontrado"));
 
         if (dentistaAlterado.getNome() != null && !dentistaAlterado.getNome().isBlank())
