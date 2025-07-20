@@ -77,7 +77,7 @@ public class ConsultaService {
     }
 
     public List<ConsultaModel> findConsultasDoUsuario(Long usuarioId) {
-        List<ConsultaModel> consultas = consultaRepository.findByPacienteId(usuarioId);
+        List<ConsultaModel> consultas = consultaRepository.findByPacienteUsuarioId(usuarioId);
         return consultas;
     }
 
