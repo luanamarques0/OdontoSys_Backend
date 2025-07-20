@@ -41,7 +41,7 @@ public class ConsultaService {
         DentistaModel dentista = dentistaRepository.findByCro(consulta.getDentistaCro())
                 .orElseThrow(() -> new RuntimeException("Dentista não encontrado"));
         
-        PacienteModel paciente = pacienteRepository.findById(consulta.getPacienteId())
+        PacienteModel paciente = pacienteRepository.findByUsuarioId(consulta.getPacienteId())
                 .orElseThrow(() -> new RuntimeException("Paciente não encontrado"));
 
         DiasAtendimentoModel data = dentista.getDiasAtendimento()

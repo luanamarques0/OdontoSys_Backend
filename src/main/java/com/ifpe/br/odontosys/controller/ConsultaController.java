@@ -37,7 +37,7 @@ public class ConsultaController {
     }
 
     @GetMapping("/agenda/{dentistaId}")
-    public ResponseEntity<List<ConsultasDentistaResponseDTO>> findConsultaByDentistaAndData( 
+    public ResponseEntity<List<ConsultasDentistaResponseDTO>> findConsultaByDentistaAndData(
         @PathVariable Long dentistaId,
         @RequestParam("data") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data
         ) {
