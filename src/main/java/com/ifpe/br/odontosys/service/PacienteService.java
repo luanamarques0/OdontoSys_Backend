@@ -2,7 +2,6 @@ package com.ifpe.br.odontosys.service;
 
 import com.ifpe.br.odontosys.model.PacienteModel;
 import com.ifpe.br.odontosys.model.UsuarioModel;
-import com.ifpe.br.odontosys.repository.DentistaRepository;
 import com.ifpe.br.odontosys.repository.PacienteRepository;
 import jakarta.transaction.Transactional;
 import java.util.List;

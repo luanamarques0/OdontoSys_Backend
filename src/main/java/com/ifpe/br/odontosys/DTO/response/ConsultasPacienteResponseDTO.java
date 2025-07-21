@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ifpe.br.odontosys.model.ConsultaModel;
 import com.ifpe.br.odontosys.model.EnderecoModel;
-
 import lombok.Getter;
 import lombok.Setter;
 

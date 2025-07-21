@@ -18,5 +18,6 @@ public class ConsultaCadastroRequestDTO {
     private LocalDateTime dataHora;
     private String dentistaCro;
     private Long pacienteId;
-
+    private String motivo;
+    
 }

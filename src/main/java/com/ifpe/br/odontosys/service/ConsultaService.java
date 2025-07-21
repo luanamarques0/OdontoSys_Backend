@@ -14,6 +14,7 @@ import com.ifpe.br.odontosys.model.PacienteModel;
 import com.ifpe.br.odontosys.model.enums.StatusConsulta;
 import com.ifpe.br.odontosys.repository.ConsultaRepository;
 import com.ifpe.br.odontosys.repository.DentistaRepository;
+import com.ifpe.br.odontosys.repository.DiasAtendimentoRepository;
 import com.ifpe.br.odontosys.repository.PacienteRepository;
 
 import jakarta.transaction.Transactional;
@@ -29,6 +30,9 @@ public class ConsultaService {
 
     @Autowired
     private DentistaRepository dentistaRepository;
+
+    @Autowired
+    private DiasAtendimentoRepository diasAtendimentoRepository;
 
 
     @Transactional
@@ -59,6 +63,7 @@ public class ConsultaService {
                 .endereco(dentista.getEndereco())
                 .paciente(paciente)
                 .dentista(dentista)
+                .motivoConsulta(consulta.getMotivo())
                 .statusConsulta(StatusConsulta.AGENDADA)
                 .build();
 
@@ -73,7 +78,7 @@ public class ConsultaService {
         LocalDateTime inicioDoDia = dataConsulta.atStartOfDay();
         LocalDateTime fimDoDia = dataConsulta.atTime(23, 59, 59);
 
-        return consultaRepository.findByDentistaIdAndDataConsultaBetween(dentistaId, inicioDoDia, fimDoDia);
+        return consultaRepository.findByDentistaUsuarioIdAndDataConsultaBetween(dentistaId, inicioDoDia, fimDoDia);
     }
 
     public List<ConsultaModel> findConsultasDoUsuario(Long usuarioId) {
@@ -111,7 +116,17 @@ public class ConsultaService {
     public void cancelarConsulta(Long consultaId) {
         ConsultaModel consulta = consultaRepository.findById(consultaId)
                 .orElseThrow(() -> new RuntimeException("Consulta não encontrada com ID: " + consultaId));
+        
+        DiasAtendimentoModel dia = consulta.getDentista().getDiasAtendimento()
+                .stream()
+                .filter(d -> d.getDataAtendimento().equals(consulta.getDataConsulta()))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Dia de atendimento não encontrado"));
+
+        dia.setDisponivel(true);
         consulta.setStatusConsulta(StatusConsulta.CANCELADA);
+
+        diasAtendimentoRepository.save(dia);
         consultaRepository.save(consulta);
     }
 }

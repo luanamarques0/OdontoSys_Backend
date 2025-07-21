@@ -8,6 +8,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -20,26 +21,43 @@ public class DiasAtendimentoService {
     @Autowired
     private DentistaRepository dentistaRepository;
 
+
+
     @Transactional
     public void createDiasAtendimento(Long dentistaId, List<DiasAtendimentoModel> diasAtendimento) {
-        DentistaModel dentista = dentistaRepository.findById(dentistaId)
+        DentistaModel dentista = dentistaRepository.findByUsuarioId(dentistaId)
                 .orElseThrow(() -> new NoSuchElementException("Dentista não encontrado"));
 
-        diasAtendimento.forEach(da -> da.setDentista(dentista));
+        for (DiasAtendimentoModel da : diasAtendimento) {
+            boolean exists = diasAtendimentoRepository.existsByDentistaIdAndDataAtendimento(
+                    dentistaId, da.getDataAtendimento());
 
+            if (exists) {
+                throw new IllegalArgumentException(
+                        "Dia de atendimento já cadastrado para a data: " + 
+                        da.getDataAtendimento()
+                        .format(DateTimeFormatter.ofPattern(("yyyy-MM-dd HH:mm:ss"))));
+            }
+        }
+
+        diasAtendimento.forEach(da -> da.setDentista(dentista));
         diasAtendimentoRepository.saveAll(diasAtendimento);
     }
 
     public List<DiasAtendimentoModel> getDiasAtendimentoByDentistaCro(String dentistaCro) {
+        dentistaRepository.findByCro(dentistaCro)
+                .orElseThrow(() -> new NoSuchElementException("Dentista não encontrado com o CRO: " + dentistaCro));
+
         return diasAtendimentoRepository.findByDentistaCroAndDisponivelTrue(dentistaCro);
     }
 
-    public DiasAtendimentoModel updateDiaAtendimento(Long dentistaId, Long id,DiasAtendimentoModel diasAtendimentoModel) {
+    public DiasAtendimentoModel updateDiaAtendimento(Long dentistaId, Long id,
+            DiasAtendimentoModel diasAtendimentoModel) {
         DentistaModel dentista = dentistaRepository.findById(dentistaId)
                 .orElseThrow(() -> new NoSuchElementException("Dentista não encontrado"));
         DiasAtendimentoModel existingDia = diasAtendimentoRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Dia de atendimento não encontrado"));
-        
+
         existingDia.setDentista(dentista);
         existingDia.setDataAtendimento(diasAtendimentoModel.getDataAtendimento());
         existingDia.setDisponivel(diasAtendimentoModel.getDisponivel());

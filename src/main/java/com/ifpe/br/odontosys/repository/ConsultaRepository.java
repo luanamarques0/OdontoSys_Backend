@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ConsultaRepository extends JpaRepository<ConsultaModel, Long> {
 
-    List<ConsultaModel> findByDentistaIdAndDataConsultaBetween(Long dentistaId, LocalDateTime dataInicio, LocalDateTime dataFim);
+    List<ConsultaModel> findByDentistaUsuarioIdAndDataConsultaBetween(Long dentistaId, LocalDateTime dataInicio, LocalDateTime dataFim);
     List<ConsultaModel> findByPacienteId(Long pacienteId);
     List<ConsultaModel> findByPacienteUsuarioId(Long usuarioId);
 

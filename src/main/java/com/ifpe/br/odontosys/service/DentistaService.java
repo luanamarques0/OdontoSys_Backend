@@ -32,6 +32,11 @@ public class DentistaService {
                 .orElseThrow(() -> new RuntimeException("Dentista não encontrado"));
     }
 
+    public DentistaModel findByCro(String cro) {
+        return dentistaRepository.findByCro(cro)
+                .orElseThrow(() -> new RuntimeException("Dentista não encontrado com o CRO: " + cro));
+    }
+
     @Transactional
     public void update(Long id, DentistaModel dentistaAlterado) {
         DentistaModel dentistaExistente = dentistaRepository.findByUsuarioId(id)
